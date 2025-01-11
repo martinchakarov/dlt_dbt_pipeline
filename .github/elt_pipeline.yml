@@ -1,0 +1,81 @@
+name: ELT Pipeline
+on:
+  workflow_dispatch:
+
+env:
+    DESTINATION__SNOWFLAKE__CREDENTIALS__HOST: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    DESTINATION__SNOWFLAKE__CREDENTIALS__USERNAME: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    DESTINATION__SNOWFLAKE__CREDENTIALS__PASSWORD: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    DESTINATION__SNOWFLAKE__CREDENTIALS__ROLE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    DESTINATION__SNOWFLAKE__CREDENTIALS__WAREHOUSE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    DESTINATION__SNOWFLAKE__CREDENTIALS__DATABASE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+
+    SOURCES__MONGODB__CONNECTION_URL: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+
+    TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__DATABASE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__SCHEMA: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__USERNAME: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__PASSWORD: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__ROLE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__WAREHOUSE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+
+jobs:
+  ingestion-mflix:
+    name: Ingestion Mflix
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pipenv'
+      - name: Install Pipenv
+        run: |
+          pip install --user pipenv
+          pipenv install
+      - name: Run Mflix Pipeline
+        run: |
+          pipenv run python ingestion/mongodb_mflix.py
+
+  ingestion-supplies:
+    name: Ingestion Supplies
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pipenv'
+      - name: Install Pipenv
+        run: |
+          pip install --user pipenv
+          pipenv install
+      - name: Run Mflix Pipeline
+        run: |
+          pipenv run python ingestion/mongodb_mflix.py
+
+  dbt-transformations:
+    name: Run dbt Transformations
+    needs: [ingestion-mflix, ingestion-supplies]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pipenv'
+      - name: Install Pipenv
+        run: |
+          pip install --user pipenv
+          pipenv install
+      - name: Install dbt dependencies
+        run: | 
+          pipenv run dbt deps --target prod
+      - name: Run and test models
+        if: ${{ success() }}
+        run: |
+          pipenv run dbt build --target prod
+          

@@ -3,8 +3,8 @@
 from itertools import islice
 from typing import TYPE_CHECKING, Any, Dict, Iterator, List, Optional, Tuple
 
-import os
 import dlt
+import os
 from bson.decimal128 import Decimal128
 from bson.objectid import ObjectId
 from bson.regex import Regex
@@ -463,7 +463,7 @@ class MongoDbCollectionConfiguration(BaseConfiguration):
 
 @configspec
 class MongoDbCollectionResourceConfiguration(BaseConfiguration):
-    connection_url: str = os.environ["MONGODB_CONNECTION_STRING"]
+    connection_url: str = os.environ["SOURCES__MONGODB__CONNECTION_URL"]
     database: Optional[str] = dlt.config.value
     collection: str = dlt.config.value
     incremental: Optional[dlt.sources.incremental] = None  # type: ignore[type-arg]

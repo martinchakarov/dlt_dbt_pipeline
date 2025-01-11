@@ -17,15 +17,14 @@ from .helpers import (
 
 @dlt.source
 def mongodb(
-    connection_url: str = os.environ["MONGODB_CONNECTION_STRING"],
+    connection_url: str = os.environ['SOURCES__MONGODB__CONNECTION_URL'],
     database: Optional[str] = dlt.config.value,
     collection_names: Optional[List[str]] = dlt.config.value,
     incremental: Optional[dlt.sources.incremental] = None,  # type: ignore[type-arg]
     write_disposition: Optional[str] = dlt.config.value,
     parallel: Optional[bool] = dlt.config.value,
     limit: Optional[int] = None,
-    filter_: Optional[Dict[str, Any]] = None,
-    primary_key: Optional[str] = None
+    filter_: Optional[Dict[str, Any]] = None
 ) -> Iterable[DltResource]:
     """
     A DLT source which loads data from a mongo database using PyMongo.
@@ -65,7 +64,7 @@ def mongodb(
         yield dlt.resource(  # type: ignore
             collection_documents,
             name=collection.name,
-            primary_key=primary_key,
+            primary_key="_id",
             write_disposition=write_disposition,
             spec=MongoDbCollectionConfiguration,
         )(
@@ -82,17 +81,16 @@ def mongodb(
     sections=("sources", "mongodb"), spec=MongoDbCollectionResourceConfiguration
 )
 def mongodb_collection(
-    connection_url: str = os.environ["MONGODB_CONNECTION_STRING"],
+    connection_url: str = os.environ['SOURCES__MONGODB__CONNECTION_URL'],
     database: Optional[str] = dlt.config.value,
     collection: str = dlt.config.value,
-    incremental: Optional[dlt.sources.incremental] = None,  # type: ignore[type-arg]
+    incremental: Optional[dlt.sources.incremental] = None,
     write_disposition: Optional[str] = dlt.config.value,
     parallel: Optional[bool] = False,
     limit: Optional[int] = None,
     chunk_size: Optional[int] = 10000,
     data_item_format: Optional[TDataItemFormat] = "object",
-    filter_: Optional[Dict[str, Any]] = None,
-    primary_key: Optional[str] = None
+    filter_: Optional[Dict[str, Any]] = None
 ) -> Any:
     """
     A DLT source which loads a collection from a mongo database using PyMongo.
@@ -128,7 +126,7 @@ def mongodb_collection(
     return dlt.resource(  # type: ignore
         collection_documents,
         name=collection_obj.name,
-        primary_key=primary_key,
+        primary_key="_id",
         write_disposition=write_disposition,
     )(
         client,

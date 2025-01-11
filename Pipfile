@@ -8,6 +8,7 @@ dbt-core = "*"
 dbt-snowflake = "*"
 pymongo = ">=3"
 dlt = {extras = ["snowflake"], version = ">=0.5.1"}
+psutil = "*"
 
 [dev-packages]
 

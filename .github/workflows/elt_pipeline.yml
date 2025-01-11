@@ -37,6 +37,8 @@ jobs:
           pipenv install
       - name: Run Mflix Pipeline
         run: |
+          pipenv shell
+          SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}/sample_mflix
           pipenv run python ingestion/mongodb_mflix.py
 
   ingestion-supplies:
@@ -56,7 +58,9 @@ jobs:
           pipenv install
       - name: Run Mflix Pipeline
         run: |
-          pipenv run python ingestion/mongodb_mflix.py
+          pipenv shell
+          SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}/sample_supplies
+          pipenv run python ingestion/mongodb_sales.py
 
   dbt-transformations:
     name: Run dbt Transformations

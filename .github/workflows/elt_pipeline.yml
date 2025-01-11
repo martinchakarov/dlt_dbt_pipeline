@@ -38,7 +38,7 @@ jobs:
       - name: Run Mflix Pipeline
         run: |
           pipenv shell
-          echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_mflix"
+          echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_mflix" >> $GITHUB_ENV
           python ingestion/mongodb_mflix.py
 
   ingestion-supplies:
@@ -59,7 +59,7 @@ jobs:
       - name: Run Mflix Pipeline
         run: |
           pipenv shell
-          echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_supplies"
+          echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_supplies" >> $GITHUB_ENV
           python ingestion/mongodb_sales.py
 
   dbt-transformations:

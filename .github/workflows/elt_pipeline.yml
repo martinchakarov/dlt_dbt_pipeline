@@ -10,7 +10,7 @@ env:
     DESTINATION__SNOWFLAKE__CREDENTIALS__WAREHOUSE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
     DESTINATION__SNOWFLAKE__CREDENTIALS__DATABASE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
 
-    SOURCES__MONGODB__CONNECTION_URL: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
+    SOURCES__MONGODB__CONNECTION_URL: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}sample_mflix
 
     TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__DATABASE: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
     TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__SCHEMA: ${{ secrets.DESTINATION__SNOWFLAKE__CREDENTIALS__HOST }}
@@ -37,9 +37,7 @@ jobs:
           pipenv install
       - name: Run Mflix Pipeline
         run: |
-          pipenv shell
-          echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_mflix" >> $GITHUB_ENV
-          python ingestion/mongodb_mflix.py
+          pipenv run python ingestion/mongodb_mflix.py
 
   ingestion-supplies:
     name: Ingestion Supplies
@@ -58,9 +56,8 @@ jobs:
           pipenv install
       - name: Run Mflix Pipeline
         run: |
-          pipenv shell
           echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_supplies" >> $GITHUB_ENV
-          python ingestion/mongodb_sales.py
+          pipenv run python ingestion/mongodb_sales.py
 
   dbt-transformations:
     name: Run dbt Transformations

@@ -1,0 +1,17 @@
+sources:
+  - name: mongo_mflix
+    database: "{{ env_var('DESTINATION__SNOWFLAKE__CREDENTIALS__DATABASE') }}"
+    schema: mflix_sample
+    tables:
+      - name: movies
+      - name: comments
+      - name: sessions
+      - name: users
+      - name: theaters
+      - name: embedded_movies
+
+  - name: mongo_supplies
+    database: "{{ env_var('DESTINATION__SNOWFLAKE__CREDENTIALS__DATABASE') }}"
+    schema: supplies_sample
+    tables:
+      - name: sales

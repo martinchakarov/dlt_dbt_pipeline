@@ -36,9 +36,10 @@ jobs:
           pip install --user pipenv
           pipenv install
       - name: Run Mflix Pipeline
-        run: pipenv shell
-        run: echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_mflix"
-        run: python ingestion/mongodb_mflix.py
+        run: |
+          pipenv shell
+          export SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_mflix
+          python ingestion/mongodb_mflix.py
 
   ingestion-supplies:
     name: Ingestion Supplies
@@ -55,10 +56,11 @@ jobs:
         run: |
           pip install --user pipenv
           pipenv install
-      - name: Run Supplies Pipeline
-        run: pipenv shell
-        run: echo "SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_supplies"
-        run: python ingestion/mongodb_sales.py
+      - name: Run Mflix Pipeline
+        run: |
+          pipenv shell
+          export SOURCES__MONGODB__CONNECTION_URL=${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}sample_supplies
+          python ingestion/mongodb_sales.py
 
   dbt-transformations:
     name: Run dbt Transformations

@@ -11,7 +11,6 @@ try:
 except ImportError:
     from mongodb import mongodb, mongodb_collection
 
-
 def load_select_collection_db(pipeline: Pipeline = None) -> LoadInfo:
     """Use the mongodb source to reflect an entire database schema and load select tables from it.
 
@@ -22,13 +21,16 @@ def load_select_collection_db(pipeline: Pipeline = None) -> LoadInfo:
         pipeline = dlt.pipeline(
             pipeline_name="local_mongo",
             destination='snowflake',
-            dataset_name="mongo_select",
+            dataset_name="mongo_analytics",
+            progress="log"
         )
-
+    
     # Configure the source to load a few select collections incrementally
-    mflix = mongodb(incremental=dlt.sources.incremental("date")).with_resources(
-        "comments"
+    mflix = mongodb().with_resources(
+        "accounts", "customers", "transactions"
     )
+    mflix.max_table_nesting = 0
+    mflix.primary_key = "_id"
 
     # Run the pipeline. The merge write disposition merges existing rows in the destination by primary key
     info = pipeline.run(mflix, write_disposition="merge")

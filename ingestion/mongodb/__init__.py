@@ -25,6 +25,7 @@ def mongodb(
     parallel: Optional[bool] = dlt.config.value,
     limit: Optional[int] = None,
     filter_: Optional[Dict[str, Any]] = None,
+    primary_key: Optional[str] = None
 ) -> Iterable[DltResource]:
     """
     A DLT source which loads data from a mongo database using PyMongo.
@@ -64,7 +65,7 @@ def mongodb(
         yield dlt.resource(  # type: ignore
             collection_documents,
             name=collection.name,
-            primary_key="_id",
+            primary_key=primary_key,
             write_disposition=write_disposition,
             spec=MongoDbCollectionConfiguration,
         )(
@@ -91,6 +92,7 @@ def mongodb_collection(
     chunk_size: Optional[int] = 10000,
     data_item_format: Optional[TDataItemFormat] = "object",
     filter_: Optional[Dict[str, Any]] = None,
+    primary_key: Optional[str] = None
 ) -> Any:
     """
     A DLT source which loads a collection from a mongo database using PyMongo.
@@ -126,7 +128,7 @@ def mongodb_collection(
     return dlt.resource(  # type: ignore
         collection_documents,
         name=collection_obj.name,
-        primary_key="_id",
+        primary_key=primary_key,
         write_disposition=write_disposition,
     )(
         client,

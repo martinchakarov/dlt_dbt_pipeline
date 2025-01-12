@@ -37,6 +37,7 @@ jobs:
           pipenv install
       - name: Run Mflix Pipeline
         run: |
+          echo "Running Mflix Pipeline"
           pipenv run python ingestion/mongodb_mflix.py
 
   ingestion-supplies:
@@ -57,6 +58,7 @@ jobs:
           pipenv install
       - name: Run Supplies Pipeline
         run: |
+          echo "Running Supplies Pipeline"
           pipenv run python ingestion/mongodb_sales.py
 
   dbt-transformations:

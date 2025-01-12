@@ -1,0 +1,14 @@
+mongo_transformations:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('DESTINATION__SNOWFLAKE__CREDENTIALS__HOST') }}"
+      user: "{{ env_var('TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__USERNAME') }}"
+      password: "{{ env_var('TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__PASSWORD') }}"
+      role: "{{ env_var('TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__ROLE') }}"
+      database: "{{ env_var('TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__DATABASE') }}"
+      warehouse: "{{ env_var('TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__WAREHOUSE') }}"
+      schema: "{{ env_var('TRANSFORMATIONS__SNOWFLAKE__CREDENTIALS__SCHEMA') }}"
+      threads: 6
+      client_session_keep_alive: True

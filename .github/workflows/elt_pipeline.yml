@@ -20,6 +20,7 @@ env:
     SOURCES__MONGODB__CONNECTION_URL: ${{ secrets.SOURCES__MONGODB__CONNECTION_URL }}
 
     DBT_PROJECT_DIR: transformations/mongo_transformations
+    DBT_PROFILES_DIR: transformations/mongo_transformations
 
 jobs:
   ingestion-mflix:

@@ -41,6 +41,7 @@ jobs:
 
   ingestion-supplies:
     name: Ingestion Supplies
+    needs: ingestion-mflix
     environment: Deployment
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -63,7 +64,7 @@ jobs:
   dbt-transformations:
     name: Run dbt Transformations
     environment: Deployment
-    needs: [ingestion-mflix, ingestion-supplies]
+    needs: ingestion-supplies
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

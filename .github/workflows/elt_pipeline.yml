@@ -38,8 +38,6 @@ jobs:
       - name: Run Mflix Pipeline
         run: |
           pipenv run python ingestion/mongodb_mflix.py
-        env:
-          SOURCES__MONGODB__CONNECTION_URL: ${{ secrets.MFLIX_CONNECTION_STRING }}
 
   ingestion-supplies:
     name: Ingestion Supplies
@@ -60,8 +58,6 @@ jobs:
       - name: Run Supplies Pipeline
         run: |
           pipenv run python ingestion/mongodb_sales.py
-        env:
-          SOURCES__MONGODB__CONNECTION_URL: ${{ secrets.SUPPLIES_CONNECTION_STRING }}
 
   dbt-transformations:
     name: Run dbt Transformations

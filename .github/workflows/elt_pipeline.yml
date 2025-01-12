@@ -82,9 +82,9 @@ jobs:
           pipenv install
       - name: Install dbt dependencies
         run: | 
-          pipenv run dbt deps --target prod
+          pipenv run dbt deps
       - name: Run and test models
         if: ${{ success() }}
         run: |
-          pipenv run dbt build --target prod
+          pipenv run dbt build
           

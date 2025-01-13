@@ -1,0 +1,179 @@
+models:
+  - name: stg_mongo_mflix_comments
+    columns:
+      - name: comment_id
+        data_type: varchar
+      - name: commenter_name
+        data_type: varchar
+      - name: commenter_email
+        data_type: varchar
+      - name: movie_id
+        data_type: varchar
+      - name: comment_text
+        data_type: varchar
+      - name: comment_date
+        data_type: timestamp_tz
+      - name: _dlt_load_id
+        data_type: varchar
+      - name: _dlt_id
+        data_type: varchar
+  - name: stg_mongo_mflix_embedded_movies
+    columns:
+      - name: movie_id
+        data_type: varchar
+      - name: movie_plot
+        data_type: varchar
+      - name: movie_genres
+        data_type: variant
+      - name: movie_runtime
+        data_type: number
+      - name: movie_rating
+        data_type: varchar
+      - name: cast_names
+        data_type: variant
+      - name: movie_poster_url
+        data_type: varchar
+      - name: movie_title
+        data_type: varchar
+      - name: movie_full_plot
+        data_type: varchar
+      - name: movie_languages
+        data_type: variant
+      - name: movie_release_date
+        data_type: date
+      - name: movie_directors_names
+        data_type: variant
+      - name: movie_writers_names
+        data_type: variant
+      - name: movie_awards_details
+        data_type: variant
+      - name: last_updated_at
+        data_type: timestamp_tz
+      - name: movie_release_year
+        data_type: number
+      - name: imdb_details
+        data_type: variant
+      - name: movie_release_countries
+        data_type: variant
+      - name: movie_type
+        data_type: varchar
+      - name: rotten_tomatoes_details
+        data_type: variant
+      - name: comment_count
+        data_type: number
+      - name: metacritic_score
+        data_type: number
+      - name: _dlt_load_id
+        data_type: varchar
+      - name: _dlt_id
+        data_type: varchar
+  - name: stg_mongo_mflix_movies
+    columns:
+      - name: movie_id
+        data_type: varchar
+      - name: movie_plot
+        data_type: varchar
+      - name: movie_genres
+        data_type: variant
+      - name: movie_runtime
+        data_type: number
+      - name: movie_rating
+        data_type: varchar
+      - name: cast_names
+        data_type: variant
+      - name: movie_poster_url
+        data_type: varchar
+      - name: movie_title
+        data_type: varchar
+      - name: movie_full_plot
+        data_type: varchar
+      - name: movie_languages
+        data_type: variant
+      - name: movie_release_date
+        data_type: date
+      - name: movie_directors_names
+        data_type: variant
+      - name: movie_writers_names
+        data_type: variant
+      - name: movie_awards_details
+        data_type: variant
+      - name: last_updated_at
+        data_type: timestamp_tz
+      - name: movie_release_year
+        data_type: number
+      - name: imdb_details
+        data_type: variant
+      - name: movie_release_countries
+        data_type: variant
+      - name: movie_type
+        data_type: varchar
+      - name: rotten_tomatoes_details
+        data_type: variant
+      - name: comment_count
+        data_type: number
+      - name: metacritic_score
+        data_type: number
+      - name: _dlt_load_id
+        data_type: varchar
+      - name: _dlt_id
+        data_type: varchar
+  - name: stg_mongo_mflix_sessions
+    columns:
+      - name: session_id
+        data_type: varchar
+      - name: user_id
+        data_type: varchar
+      - name: jwt_hash
+        data_type: varchar
+      - name: _dlt_load_id
+        data_type: varchar
+      - name: _dlt_id
+        data_type: varchar
+  - name: stg_mongo_mflix_theaters
+    columns:
+      - name: theather_id
+        data_type: varchar
+      - name: theater_key
+        data_type: number
+      - name: theater_location
+        data_type: variant
+      - name: _dlt_load_id
+        data_type: varchar
+      - name: _dlt_id
+        data_type: varchar
+  - name: stg_mongo_mflix_users
+    columns:
+      - name: user_id
+        data_type: varchar
+      - name: username
+        data_type: varchar
+      - name: email
+        data_type: varchar
+      - name: password
+        data_type: varchar
+      - name: preferences
+        data_type: variant
+      - name: _dlt_load_id
+        data_type: varchar
+      - name: _dlt_id
+        data_type: varchar
+  - name: stg_mongo_supplies_sales
+    columns:
+      - name: sale_id
+        data_type: varchar
+      - name: sale_date
+        data_type: timestamp_tz
+      - name: items
+        data_type: variant
+      - name: store_location
+        data_type: varchar
+      - name: customer_details
+        data_type: variant
+      - name: is_coupon_used
+        data_type: boolean
+      - name: purchase_method
+        data_type: varchar
+      - name: _dlt_load_id
+        data_type: varchar
+      - name: _dlt_id
+        data_type: varchar
